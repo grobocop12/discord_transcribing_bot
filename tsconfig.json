@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+      "strict": true,
+      "moduleResolution": "node",
+      "removeComments": false,
+      "alwaysStrict": true,
+      "pretty": true,
+      "target": "es2019",
+      "lib": ["ESNext", "DOM"],
+      "sourceMap": true,
+      "inlineSources": true,
+      "module": "commonjs",
+      "declaration": true,
+      "declarationMap": true,
+      "outDir": "dist",
+      "incremental": true,
+      "esModuleInterop": true,
+      "skipLibCheck": true
+    },
+    "assets": ["src/**/*.json"],
+    "include": ["src/**/*.ts"],
+    "exclude": ["src/**/__tests__"]
+  }
+  
