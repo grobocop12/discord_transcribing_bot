@@ -1,5 +1,6 @@
 import Discord, { Interaction } from 'discord.js';
 import { commands } from './commands';
+import { interactionHandlers } from './interactions';
 
 export const client = new Discord.Client({ intents: ['GUILD_VOICE_STATES', 'GUILD_MESSAGES', 'GUILDS'] });
 
@@ -8,7 +9,12 @@ client.on('ready', () => {
 });
 
 client.on('interactionCreate', async (interaction: Interaction) => {
-
+    if (interaction.isCommand() && interaction.guildId) {
+        const handler = interactionHandlers.get(interaction.commandName);
+        if (handler) {
+            handler(interaction, client);
+        }
+    }
 })
 
 function initializeCommands() {
