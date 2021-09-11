@@ -22,7 +22,6 @@ async function join(interaction: CommandInteraction, client: Client) {
             await entersState(connection, VoiceConnectionStatus.Ready, 20e3);
             const receiver = connection.receiver;
             receiver.speaking.on('start', (userId: string) => {
-                
             })
         } catch (error) {
             console.warn(error);
@@ -30,13 +29,13 @@ async function join(interaction: CommandInteraction, client: Client) {
         }
         await interaction.followUp('Ready!');
     }
+}
 
-    export const interactionHandlers = new Map<
-        string,
-        (
-            interaction: CommandInteraction,
-            client: Client
-        ) => Promise<void>
-    >();
+export const interactionHandlers = new Map<
+    string,
+    (
+        interaction: CommandInteraction,
+        client: Client
+    ) => Promise<void>>();
 
-    interactionHandlers.set('join', join);
+interactionHandlers.set('join', join);
