@@ -1,5 +1,6 @@
 import { Client, CommandInteraction, GuildMember } from "discord.js";
 import { entersState, getVoiceConnection, joinVoiceChannel, VoiceConnectionStatus } from '@discordjs/voice';
+import { createListeningStream } from "./createListeningStream";
 
 async function join(interaction: CommandInteraction, client: Client) {
     await interaction.deferReply();
@@ -22,6 +23,7 @@ async function join(interaction: CommandInteraction, client: Client) {
             await entersState(connection, VoiceConnectionStatus.Ready, 20e3);
             const receiver = connection.receiver;
             receiver.speaking.on('start', (userId: string) => {
+                createListeningStream(receiver, userId, client.users.cache.get(userId))
             })
         } catch (error) {
             console.warn(error);
