@@ -1,5 +1,6 @@
 import { Client, CommandInteraction, Snowflake } from "discord.js";
 import { join } from "./join";
+import { leave } from "./leave";
 
 export const interactionHandlers = new Map<
     string,
@@ -11,3 +12,4 @@ export const interactionHandlers = new Map<
 >();
 
 interactionHandlers.set('join', join);
+interactionHandlers.set('leave', leave);
