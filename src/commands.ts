@@ -21,6 +21,10 @@ export const commands = async (guild: Guild) => {
                     required: true,
                 },
             ],
+        },
+        {
+            name: 'stop_recording',
+            description: 'Deletes all users from list of recordable users.'
         }
     ])
 }
