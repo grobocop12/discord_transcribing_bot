@@ -4,24 +4,24 @@ import { createListeningStream } from "./createListeningStream";
 
 export async function join(interaction: CommandInteraction, client: Client) {
     await interaction.deferReply();
-    let connection = getVoiceConnection(interaction.guildId!);
-    if (!connection) {
-        tryCreatingConnection(interaction).then((voiceConnection) => {
-            tryCreatingReceiverHandlers(interaction, client, voiceConnection);
+    getOrCreateVoiceConnection(interaction)
+        .then((connection: VoiceConnection) => {
+            return tryCreatingReceiverHandlers(client, connection)
         })
-        .catch((message) => {
-            interaction.followUp(message)
+        .then(() => {
+            interaction.followUp("Ready!");
         })
-    } else {
-        tryCreatingReceiverHandlers(interaction, client, connection);
-    }
+        .catch((error: Error) => {
+            interaction.followUp(error.message);
+        })
 }
 
-async function tryCreatingConnection(interaction: CommandInteraction): Promise<VoiceConnection> {
-    try {
+async function getOrCreateVoiceConnection(interaction: CommandInteraction): Promise<VoiceConnection> {
+    let connection = getVoiceConnection(interaction.guildId!);
+    if (!connection) {
         return createVoiceConnection(interaction);
-    } catch (error) {
-        throw error;
+    } else {
+        return connection;
     }
 }
 
@@ -40,13 +40,11 @@ async function createVoiceConnection(interaction: CommandInteraction): Promise<V
     }
 }
 
-async function tryCreatingReceiverHandlers(interaction: CommandInteraction, client: Client, connection: VoiceConnection) {
-    try {
-        createReceiverHandlers(connection, client);
-        await interaction.followUp('Ready!');
-    } catch (error) {
-        throw Error('Failed to join voice channel within 20 seconds, please try again later!');
-    }
+async function tryCreatingReceiverHandlers(client: Client, connection: VoiceConnection): Promise<void> {
+    return createReceiverHandlers(connection, client)
+        .catch(error => {
+            throw Error('Failed to join voice channel within 20 seconds, please try again later!');
+        })
 }
 
 async function createReceiverHandlers(connection: VoiceConnection, client: Client) {
