@@ -24,7 +24,7 @@ export function createListeningStream(receiver: VoiceReceiver, userId: string, u
             maxPackets: 1000,
         },
     });
-    const filename = `./recordings/${Date.now()}-${getDisplayName(userId, user)}.ogg`;
+    const filename = `./records/${Date.now()}-${getDisplayName(userId, user)}.ogg`;
 
     const out = createWriteStream(filename);
 
@@ -36,7 +36,6 @@ export function createListeningStream(receiver: VoiceReceiver, userId: string, u
             if (error) {
                 console.warn(error);
             }
-            console.log("pipeline accomplished.");
         }
     );
 
