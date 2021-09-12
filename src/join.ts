@@ -1,12 +1,12 @@
 import { entersState, getVoiceConnection, joinVoiceChannel, VoiceConnection, VoiceConnectionStatus } from "@discordjs/voice";
-import { Client, CommandInteraction, GuildMember } from "discord.js";
+import { Client, CommandInteraction, GuildMember, Snowflake } from "discord.js";
 import { createListeningStream } from "./createListeningStream";
 
-export async function join(interaction: CommandInteraction, client: Client) {
+export async function join(interaction: CommandInteraction, client: Client, recordable?: Set<Snowflake>) {
     await interaction.deferReply();
     getOrCreateVoiceConnection(interaction)
         .then((connection: VoiceConnection) => {
-            return tryCreatingReceiverHandlers(client, connection)
+            return tryCreatingReceiverHandlers(client, connection, recordable!)
         })
         .then(() => {
             interaction.followUp("Ready!");
@@ -40,17 +40,21 @@ async function createVoiceConnection(interaction: CommandInteraction): Promise<V
     }
 }
 
-async function tryCreatingReceiverHandlers(client: Client, connection: VoiceConnection): Promise<void> {
-    return createReceiverHandlers(connection, client)
+async function tryCreatingReceiverHandlers(client: Client,
+    connection: VoiceConnection,
+    recordable: Set<Snowflake>): Promise<void> {
+    return createReceiverHandlers(connection, client, recordable)
         .catch(error => {
             throw Error('Failed to join voice channel within 20 seconds, please try again later!');
         })
 }
 
-async function createReceiverHandlers(connection: VoiceConnection, client: Client) {
+async function createReceiverHandlers(connection: VoiceConnection, client: Client, recordable: Set<Snowflake>) {
     await entersState(connection, VoiceConnectionStatus.Ready, 20e3);
     const receiver = connection.receiver;
     receiver.speaking.on('start', (userId: string) => {
-        createListeningStream(receiver, userId, client.users.cache.get(userId))
+        if (recordable.has(userId)) {
+            createListeningStream(receiver, userId, client.users.cache.get(userId))
+        }
     });
 }
