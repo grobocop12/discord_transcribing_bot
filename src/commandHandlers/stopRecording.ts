@@ -1,12 +1,20 @@
+import { getVoiceConnection } from "@discordjs/voice";
 import { Client, CommandInteraction, GuildMember, Snowflake } from "discord.js";
 
 export async function stopRecording(interaction: CommandInteraction, client: Client, recordable?: Set<Snowflake>) {
-    if (interaction.guildId &&
+    interaction.deferReply();
+    let connection = getVoiceConnection(interaction.guildId!);
+    if (connection &&
+        recordable &&
+        interaction.guildId &&
         interaction.member instanceof GuildMember &&
         interaction.member.voice.channel) {
-        recordable?.clear();
-        interaction.reply('Cleared list of recordable users.')
+        const userId = interaction.options.get('speaker')?.value! as Snowflake;
+        if(recordable.has(userId)){
+            recordable.delete(userId);
+        }
+        interaction.followUp("User deleted from list.");
     } else {
-        interaction.reply('Join a voice channel and then try again!');
+        interaction.followUp("Join voice channel and try again.");
     }
 }
