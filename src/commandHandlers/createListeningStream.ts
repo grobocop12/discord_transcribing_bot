@@ -1,14 +1,16 @@
 import { EndBehaviorType, VoiceReceiver } from "@discordjs/voice";
-import { User } from "discord.js";
-import { createWriteStream } from 'fs';
+import { Guild, GuildChannel, TextChannel, User } from "discord.js";
+import { createWriteStream, unlinkSync, PathLike } from 'fs';
 import { pipeline } from "stream";
 import { opus } from 'prism-media';
+import { findRecordsChannel } from "../create_channel";
 
 function getDisplayName(userId: string, user?: User) {
     return user ? `${user.username}_${user.discriminator}` : userId;
 }
 
-export function createListeningStream(receiver: VoiceReceiver, userId: string, user?: User) {
+export function createListeningStream(receiver: VoiceReceiver, userId: string, guild: Guild, user?: User) {
+    const channel = findRecordsChannel(guild) as TextChannel;
     const opusStream = receiver.subscribe(userId, {
         end: {
             behavior: EndBehaviorType.AfterSilence,
@@ -25,9 +27,7 @@ export function createListeningStream(receiver: VoiceReceiver, userId: string, u
         },
     });
     const filename = `./records/${Date.now()}-${getDisplayName(userId, user)}.ogg`;
-
     const out = createWriteStream(filename);
-
     pipeline(
         opusStream,
         oggStream,
@@ -35,6 +35,12 @@ export function createListeningStream(receiver: VoiceReceiver, userId: string, u
         (error) => {
             if (error) {
                 console.warn(error);
+            } else {
+                channel.send({
+                    files: [filename]
+                }).then(() => {
+                    unlinkSync(filename as PathLike);
+                });
             }
         }
     );
