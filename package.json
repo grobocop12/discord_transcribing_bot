@@ -4,7 +4,7 @@
   "description": "Discord bot for voice recording",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc --build && cp -r src/config dist/config",
+    "build": "tsc --build",
     "clean": "rm -rf ./dist",
     "start": "npm run build && node dist/index.js"
   },
@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@discordjs/voice": "^0.6.0",
+    "@google-cloud/speech": "^4.8.1",
     "discord.js": "^13.1.0",
     "libsodium": "^0.7.9",
     "libsodium-wrappers": "^0.7.9",

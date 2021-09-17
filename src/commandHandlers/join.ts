@@ -1,6 +1,6 @@
 import { entersState, getVoiceConnection, joinVoiceChannel, VoiceConnection, VoiceConnectionStatus } from "@discordjs/voice";
 import { Client, CommandInteraction, GuildMember, Interaction, Snowflake } from "discord.js";
-import { createListeningStream } from "./createListeningStream";
+import { createListeningStream } from "./create_listening_stream";
 
 export async function join(interaction: CommandInteraction, client: Client, recordable?: Set<Snowflake>) {
     await interaction.deferReply();

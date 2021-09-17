@@ -2,8 +2,8 @@ import { Client, CommandInteraction, Snowflake } from "discord.js";
 import { join } from "./commandHandlers/join";
 import { leave } from "./commandHandlers/leave";
 import { record } from "./commandHandlers/record";
-import { stopRecording } from "./commandHandlers/stopRecording";
-import { stopRecordingAll } from "./commandHandlers/stopRecordingAll";
+import { stopRecording } from "./commandHandlers/stop_recording";
+import { stopRecordingAll } from "./commandHandlers/stop_recording_all";
 
 
 export const interactionHandlers = new Map<
