@@ -1,7 +1,7 @@
 import { getVoiceConnection } from "@discordjs/voice";
 import { Client, CommandInteraction, GuildMember, Snowflake } from "discord.js";
 
-export async function stopRecording(interaction: CommandInteraction, client: Client, recordable?: Set<Snowflake>) {
+export async function stopTranscribing(interaction: CommandInteraction, client: Client, recordable?: Set<Snowflake>) {
     interaction.deferReply();
     let connection = getVoiceConnection(interaction.guildId!);
     if (connection &&

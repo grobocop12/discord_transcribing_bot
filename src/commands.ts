@@ -4,39 +4,39 @@ export const commands = async (guild: Guild) => {
     await guild.commands.set([
         {
             name: 'join',
-            description: 'Joins the voice channel that you are in'
+            description: 'Joins the voice channel that you are in.'
         },
         {
             name: 'leave',
             description: 'Leaves the voice channel.'
         },
         {
-            name: 'record',
-            description: 'Enables recording for a user',
+            name: 'transcribe',
+            description: 'Enables transcribing of a user.',
             options: [
                 {
                     name: 'speaker',
                     type: 'USER' as const,
-                    description: 'The user to record',
+                    description: 'The user to transcribe.',
                     required: true,
                 },
             ],
         },
         {
-            name: 'stop_recording',
-            description: 'Disables recording for a user',
+            name: 'stop_transcribing',
+            description: 'Disables transcribing of a user.',
             options: [
                 {
                     name: 'speaker',
                     type: 'USER' as const,
-                    description: 'The user to not record',
+                    description: 'The user to not transcribe.',
                     required: true,
                 },
             ],
         },
         {
-            name: 'stop_recording_all',
-            description: 'Deletes all users from list of recordable users.'
+            name: 'stop_transcribing_all',
+            description: 'Disables transcribing of all users.'
         }
     ])
 }

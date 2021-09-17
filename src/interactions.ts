@@ -1,9 +1,9 @@
 import { Client, CommandInteraction, Snowflake } from "discord.js";
 import { join } from "./commandHandlers/join";
 import { leave } from "./commandHandlers/leave";
-import { record } from "./commandHandlers/record";
-import { stopRecording } from "./commandHandlers/stop_recording";
-import { stopRecordingAll } from "./commandHandlers/stop_recording_all";
+import { transcribe } from "./commandHandlers/transcribe";
+import { stopTranscribing } from "./commandHandlers/stop_transcribing";
+import { stopTranscribingAll } from "./commandHandlers/stop_transcribing_all";
 
 
 export const interactionHandlers = new Map<
@@ -17,6 +17,6 @@ export const interactionHandlers = new Map<
 
 interactionHandlers.set('join', join);
 interactionHandlers.set('leave', leave);
-interactionHandlers.set('record', record);
-interactionHandlers.set('stop_recording', stopRecording);
-interactionHandlers.set('stop_recording_all', stopRecordingAll);
+interactionHandlers.set('transcribe', transcribe);
+interactionHandlers.set('stop_transcribing', stopTranscribing);
+interactionHandlers.set('stop_transcribing_all', stopTranscribingAll);

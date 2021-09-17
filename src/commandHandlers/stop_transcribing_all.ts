@@ -1,6 +1,6 @@
 import { Client, CommandInteraction, GuildMember, Snowflake } from "discord.js";
 
-export async function stopRecordingAll(interaction: CommandInteraction, client: Client, recordable?: Set<Snowflake>) {
+export async function stopTranscribingAll(interaction: CommandInteraction, client: Client, recordable?: Set<Snowflake>) {
     if (interaction.guildId &&
         interaction.member instanceof GuildMember &&
         interaction.member.voice.channel) {
