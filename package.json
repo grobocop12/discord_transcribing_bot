@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "@discordjs/voice": "^0.6.0",
+    "@google-cloud/speech": "^4.8.1",
     "discord.js": "^13.1.0",
     "libsodium": "^0.7.9",
     "libsodium-wrappers": "^0.7.9",
