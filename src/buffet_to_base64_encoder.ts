@@ -1,6 +1,6 @@
 import { Writable } from "stream";
 
-export class AudioStringWritable extends Writable {
+export class BufferToBase64Encoder extends Writable {
     buffers: Array<Buffer> = [];
 
     constructor() {

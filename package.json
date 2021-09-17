@@ -4,7 +4,7 @@
   "description": "Discord bot for voice recording",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc --build && cp -r src/config dist/config",
+    "build": "tsc --build",
     "clean": "rm -rf ./dist",
     "start": "npm run build && node dist/index.js"
   },
