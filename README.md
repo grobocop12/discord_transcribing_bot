@@ -5,8 +5,10 @@ This is a modified version of Recorder bot from discordjs/voice repository: http
 ## Configuration
 Bot application requires scopes: 
 * **bot**
-* **applications.commands**\
-and **Administrator** permission.\
+* **applications.commands**
+
+and **Administrator** permission.
+
 Before running the bot a config.json file should be created in config directory. The file should contain a bot token.
 
 ```
