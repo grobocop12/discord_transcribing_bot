@@ -3,7 +3,7 @@ import { Guild, TextChannel, User } from "discord.js";
 import { pipeline } from "stream";
 import { opus } from 'prism-media';
 import { findRecordsChannel } from "../create_channel";
-import { BufferToBase64Encoder } from "../buffet_to_base64_encoder";
+import { BufferToBase64Encoder } from "../buffer_to_base64_encoder";
 import { googleClient, googleRequestConfig } from "../google_client";
 import { google } from "@google-cloud/speech/build/protos/protos";
 
